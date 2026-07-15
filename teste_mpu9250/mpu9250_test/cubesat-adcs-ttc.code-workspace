@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../Downloads/adcs-mpu_testes_lora/cubesat-adcs-ttc"
+		},
+		{
+			"name": "mpu9250_test",
+			"path": "."
+		}
+	],
+	"settings": {}
+}

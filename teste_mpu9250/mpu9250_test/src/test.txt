@@ -1,0 +1,37 @@
+#include <Arduino.h>
+#include <Wire.h>
+#include <MPU9250.h>
+
+MPU9250 mpu;
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+
+  Wire.begin(21, 22);
+  Wire.setClock(400000);
+
+  Serial.println("Iniciando MPU9250...");
+  
+  if (!mpu.setup(0x68)) {
+    Serial.println("Falha na inicialização.");
+    while (1) { delay(1000); }
+  }
+
+  Serial.println("MPU9250 OK. Pulando calibração por enquanto.");
+}
+
+void loop() {
+  if (mpu.update()) {
+    static unsigned long ultimoPrint = 0;
+    if (millis() - ultimoPrint > 500) {
+      ultimoPrint = millis();
+      Serial.print("Acc: ");
+      Serial.print(mpu.getAccX(), 2);
+      Serial.print(", ");
+      Serial.print(mpu.getAccY(), 2);
+      Serial.print(", ");
+      Serial.println(mpu.getAccZ(), 2);
+    }
+  }
+}
